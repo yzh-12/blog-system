@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.zeng</groupId>
+    <artifactId>blog-system</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>blog-user</module>
+        <module>blog-common</module>
+    </modules>
+    <name>blog-system</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <sa-token-spring-boot-starter>1.30.0</sa-token-spring-boot-starter>
+        <spring.boot.version>2.6.8</spring.boot.version>
+        <io.springfox.version>3.0.0</io.springfox.version>
+        <mysql.version>8.0.27</mysql.version>
+        <hutool.version>5.7.22</hutool.version>
+        <guava.version>29.0-jre</guava.version>
+        <spring.boot.web>2.6.6</spring.boot.web>
+        <mybaits.plus.spring.boot>3.3.1</mybaits.plus.spring.boot>
+        <logback.classic>1.2.3</logback.classic>
+        <blog.common.core>1.0-SNAPSHOT</blog.common.core>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.zeng</groupId>
+                <artifactId>blog-common-core</artifactId>
+                <version>${blog.common.core}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--添加 slf4j 实现类-->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.classic}</version>
+            </dependency>
+            <!-- 数据库连接 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- hutool工具类 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- guava工具类 -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot-starter</artifactId>
+                <version>${sa-token-spring-boot-starter}</version>
+            </dependency>
+            <!-- spring-boot-starter-web -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.web}</version>
+            </dependency>
+            <!-- mybatis-spring-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybaits.plus.spring.boot}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
