@@ -1,0 +1,19 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: blog-user
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog_system?useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+sa-token:
+  token-name: zenghang
+  timeout: 3000
+  activity-timeout: 1800
+  is-concurrent: true
+  is-share: true
+  is-log: true
