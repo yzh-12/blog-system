@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 public class LoginController extends BaseController {
 
-
     @PostMapping("/login")
-    public BaseResult login() {
+    public BaseResult<Object> login() {
         return success();
     }
 }

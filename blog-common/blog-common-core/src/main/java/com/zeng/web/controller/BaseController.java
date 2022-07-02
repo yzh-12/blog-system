@@ -19,21 +19,28 @@ public class BaseController {
         });
     }
 
-    public static BaseResult success() {
+    public static BaseResult<Object> success() {
         return BaseResult.success("operation success.");
     }
 
-    public static BaseResult success(String msg) {
+    public static BaseResult<Object> success(String msg) {
         return BaseResult.success(msg);
     }
 
-    public static BaseResult error() {
+    public static <T> BaseResult<T> success(String msg, T data) {
+        return BaseResult.success(msg, data);
+    }
+
+    public static BaseResult<Object> error() {
         return BaseResult.error("operation fail.");
     }
 
-    public static BaseResult error(String msg) {
+    public static BaseResult<Object> error(String msg) {
         return BaseResult.error(msg);
     }
 
+    public static <T> BaseResult<T> error(String msg, T data) {
+        return BaseResult.error(msg, data);
+    }
 
 }

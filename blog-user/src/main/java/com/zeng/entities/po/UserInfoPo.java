@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @TableName("user_info")
 @Data
 public class UserInfoPo {
-    @TableId(value = "user_id", type = IdType.AUTO)
+    @TableId(value = "user_id", type = IdType.ASSIGN_UUID)
     private String userId;
     private String userName;
     private String nickName;
