@@ -7,8 +7,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@TableName("user_info")
 @Data
+@TableName("user_info")
 public class UserInfoPo {
     @TableId(value = "user_id", type = IdType.ASSIGN_UUID)
     private String userId;

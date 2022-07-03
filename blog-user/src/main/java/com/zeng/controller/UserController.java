@@ -1,10 +1,12 @@
 package com.zeng.controller;
 
-import com.zeng.entities.po.UserInfoPo;
+import com.zeng.entities.vo.CreateUserVo;
 import com.zeng.service.UserInfoService;
 import com.zeng.web.controller.BaseController;
 import com.zeng.web.domain.BaseResult;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("user")
-public class UserInfoController extends BaseController {
+public class UserController extends BaseController {
 
     private UserInfoService userInfoService;
 
-    public UserInfoController(UserInfoService userInfoService) {
+    public UserController(UserInfoService userInfoService) {
         this.userInfoService = userInfoService;
     }
 
@@ -29,10 +31,10 @@ public class UserInfoController extends BaseController {
         return success();
     }
 
-    @PostMapping("userinfo")
-    public BaseResult<Integer> createUserInfo(@RequestBody UserInfoPo userInfo) {
-        int result = userInfoService.addUserInfo(userInfo);
-        return success("create user info success.", result);
+    @PostMapping("user")
+    public BaseResult<Object> createUser(@RequestBody @Validated CreateUserVo createUserVo) {
+        boolean result = userInfoService.createUser(createUserVo);
+        return result ? success("create user success.") : error("create user error.");
     }
 
 }
