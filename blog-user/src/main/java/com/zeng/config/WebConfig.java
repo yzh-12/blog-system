@@ -16,15 +16,15 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addConverterFactory(new ConverterFactory<Object, BaseEnum>() {
             @Override
             public <T extends BaseEnum> Converter<Object, T> getConverter(Class<T> targetType) {
-                T[] ennums = targetType.getEnumConstants();
+                T[] enums = targetType.getEnumConstants();
 
                 return source -> {
-                    for (T t : ennums) {
+                    for (T t : enums) {
                         if (t.getCode().equals(source)) {
                             return t;
                         }
                     }
-                    throw new IllegalArgumentException("ennum code is not correct.");
+                    throw new IllegalArgumentException("enums code is not correct.");
                 };
             }
         });

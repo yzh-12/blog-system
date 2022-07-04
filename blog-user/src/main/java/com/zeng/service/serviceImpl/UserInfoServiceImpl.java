@@ -48,6 +48,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
     @Override
     public boolean createUser(CreateUserVo createUserVo) {
         log.info("create user starting. args create user vo => {}", createUserVo);
+        if (checkUserInfo(createUserVo)) {
+            throw new IllegalArgumentException("user name or email or phone number is used.");
+        }
         Pair<UserInfoPo, UserAuthsPo> convertResult = ConvertUtil.convert(createUserVo);
         UserInfoPo userInfo = convertResult.getKey();
         UserAuthsPo userAuths = convertResult.getValue();
@@ -63,8 +66,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
     }
 
     private boolean checkUserInfo(CreateUserVo createUserVo) {
-        // todo
-        return false;
+        String userName = createUserVo.getUserName();
+        String phoneNumber = createUserVo.getPhoneNumber();
+        String email = createUserVo.getEmail();
+        int result = userInfoDao.countUserInfoRepeat(userName, phoneNumber, email);
+        return result > 0 ? true : false;
     }
 
 }

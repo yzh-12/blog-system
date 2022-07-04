@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zeng.dao.UserInfoDao"></mapper>
+<mapper namespace="com.zeng.dao.UserInfoDao">
+    <select id="countUserInfoRepeat" resultType="java.lang.Integer">
+        select count(*)
+        from user_info t
+        where t.user_name = #{userName}
+           or t.phone_number = #{phoneNumber}
+           or t.email = #{email}
+    </select>
+</mapper>

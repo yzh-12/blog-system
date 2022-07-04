@@ -7,6 +7,8 @@ public interface UserAuthsService {
 
     int addUserAuths(UserAuthsPo userAuthsPo);
 
-    boolean login(LoginVo loginInfo);
+    String login(LoginVo loginInfo);
+
+    boolean logout();
 
 }
