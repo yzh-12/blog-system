@@ -14,5 +14,6 @@
 
     <modules>
         <module>blog-common-core</module>
+        <module>blog-common-config</module>
     </modules>
 </project>

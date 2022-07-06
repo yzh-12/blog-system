@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 import com.zeng.constant.GenderConst;
 import com.zeng.constant.IdentityTypeConst;
 
+import com.zeng.constant.RoleConst;
 import lombok.Data;
 
 @Data
@@ -25,4 +26,6 @@ public class CreateUserVo {
     private IdentityTypeConst identityType;
     private String identifier;
     private String credential;
+    @NotNull(message = "role can not be null.")
+    private RoleConst role;
 }

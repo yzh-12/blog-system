@@ -1,23 +1,47 @@
 package com.zeng.service.serviceImpl;
 
-import com.zeng.dao.PermissionDao;
-import com.zeng.entities.po.PermissionPo;
+import cn.hutool.core.lang.Pair;
+import com.zeng.dao.RolePermissionDao;
+import com.zeng.entities.bo.PermissionBo;
+import com.zeng.entities.bo.RolePermissionBo;
+import com.zeng.entities.po.RolePermissionPo;
+import com.zeng.entities.vo.JoinVipVo;
 import com.zeng.service.RoleResource;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleResourceImpl implements RoleResource {
 
-    private PermissionDao permissionDao;
+    private RolePermissionDao rolePermissionDao;
 
-    public RoleResourceImpl(PermissionDao permissionDao) {
-        this.permissionDao = permissionDao;
+    public RoleResourceImpl(RolePermissionDao rolePermissionDao) {
+        this.rolePermissionDao = rolePermissionDao;
     }
 
     @Override
-    public List<PermissionPo> getAllPermission() {
-        return null;
+    public RolePermissionBo getRoleResourceByUserId(String userId) {
+        List<RolePermissionPo> rolePermissionList = rolePermissionDao.qryRoleResourceByUserId(userId);
+        Map<Pair<String, String>, List<PermissionBo>> groupResult = rolePermissionList.stream().collect(Collectors.groupingBy(e -> Pair.of(e.getRoleId(), e.getRoleName()), Collectors.mapping(e -> {
+            PermissionBo permission = new PermissionBo();
+            permission.setPermissionId(e.getPermissionId());
+            permission.setPermissionName(e.getPermissionName());
+            return permission;
+        }, Collectors.toList())));
+
+        RolePermissionBo result = new RolePermissionBo();
+        Iterator<Map.Entry<Pair<String, String>, List<PermissionBo>>> iterator = groupResult.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Pair<String, String>, List<PermissionBo>> entry = iterator.next();
+            Pair<String, String> pair = entry.getKey();
+            result.setRoleId(pair.getKey());
+            result.setRoleName(pair.getValue());
+            result.setPermissionList(entry.getValue());
+        }
+        return result;
     }
 }

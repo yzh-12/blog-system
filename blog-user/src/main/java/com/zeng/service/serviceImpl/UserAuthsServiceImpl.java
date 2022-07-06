@@ -1,5 +1,6 @@
 package com.zeng.service.serviceImpl;
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -45,6 +46,8 @@ public class UserAuthsServiceImpl extends ServiceImpl<UserAuthsDao, UserAuthsPo>
             return null;
         }
         StpUtil.login(loginInfo.getIdentifier());
+        SaSession session = StpUtil.getSession();
+        session.set("user_id", userId);
         return userId;
     }
 

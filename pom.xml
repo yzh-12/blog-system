@@ -7,6 +7,7 @@
     <modules>
         <module>blog-user</module>
         <module>blog-common</module>
+        <module>blog-common/blog-common-config</module>
     </modules>
     <name>blog-system</name>
     <packaging>pom</packaging>
@@ -37,6 +38,11 @@
                 <version>${sa-token-redis}</version>
             </dependency>
             <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-core</artifactId>
+                <version>${sa-token-spring-boot-starter}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-validation</artifactId>
                 <version>${spring.validation}</version>
@@ -44,6 +50,11 @@
             <dependency>
                 <groupId>com.zeng</groupId>
                 <artifactId>blog-common-core</artifactId>
+                <version>${blog.common.core}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zeng</groupId>
+                <artifactId>blog-common-config</artifactId>
                 <version>${blog.common.core}</version>
             </dependency>
             <dependency>

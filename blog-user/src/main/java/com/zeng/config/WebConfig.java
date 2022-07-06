@@ -1,15 +1,22 @@
 package com.zeng.config;
 
+import cn.dev33.satoken.interceptor.SaRouteInterceptor;
+import com.zeng.constant.BaseEnum;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.zeng.constant.BaseEnum;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new SaRouteInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/login");
+    }
+
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
@@ -29,5 +36,4 @@ public class WebConfig implements WebMvcConfigurer {
             }
         });
     }
-
 }

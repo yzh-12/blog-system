@@ -7,8 +7,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>blog-common-core</artifactId>
-    <name>blog-common-core</name>
+    <groupId>com.zeng</groupId>
+    <artifactId>blog-common-config</artifactId>
+    <name>blog-common-config</name>
+    <version>1.0-SNAPSHOT</version>
 
 
     <properties>
@@ -20,19 +22,15 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <artifactId>spring-webmvc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <groupId>com.zeng</groupId>
+            <artifactId>blog-common-core</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-core</artifactId>
         </dependency>
     </dependencies>
 </project>

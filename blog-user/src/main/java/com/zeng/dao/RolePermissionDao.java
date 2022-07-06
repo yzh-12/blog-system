@@ -1,6 +1,7 @@
 package com.zeng.dao;
 
 import com.zeng.entities.bo.RolePermissionBo;
+import com.zeng.entities.po.RolePermissionPo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +11,5 @@ public interface RolePermissionDao {
 
     List<RolePermissionBo> qryAllRolePermission();
 
-    // TODO: 2022/7/4  
-    int insertRoleWithPermission();
-
+    List<RolePermissionPo> qryRoleResourceByUserId(String userId);
 }

@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zeng</groupId>
-            <artifactId>blog-common-core</artifactId>
+            <artifactId>blog-common-config</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.dev33</groupId>

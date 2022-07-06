@@ -1,10 +1,10 @@
 package com.zeng.service;
 
-import com.zeng.entities.po.PermissionPo;
-
-import java.util.List;
+import com.zeng.entities.bo.RolePermissionBo;
 
 public interface RoleResource {
 
-    List<PermissionPo> getAllPermission();
+    RolePermissionBo getRoleResourceByUserId(String userId);
+
+
 }

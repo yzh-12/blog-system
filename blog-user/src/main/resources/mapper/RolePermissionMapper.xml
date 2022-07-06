@@ -4,4 +4,12 @@
 
     <select id="qryAllRolePermission" resultType="com.zeng.entities.bo.RolePermissionBo">
     </select>
+    <select id="qryRoleResourceByUserId" resultType="com.zeng.entities.po.RolePermissionPo">
+        select r.role_id, r.role_name, p.permission_id, p.permission_name, ur.user_id
+        from role r
+                 left join user_role ur on r.role_id = ur.role_id
+                 left join role_permission rp on r.role_id = rp.role_id
+                 left join permission p on rp.permission_id = p.permission_id
+        where ur.user_id = #{userId}
+    </select>
 </mapper>
