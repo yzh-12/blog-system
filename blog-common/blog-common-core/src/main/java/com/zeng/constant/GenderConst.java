@@ -21,7 +21,7 @@ public enum GenderConst implements BaseEnum {
     }
 
     @Override
-    public Object getCode() {
+    public Integer getCode() {
         return this.key;
     }
 }

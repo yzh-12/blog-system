@@ -4,13 +4,11 @@ import com.zeng.entities.vo.LoginVo;
 import com.zeng.service.UserAuthsService;
 import com.zeng.web.controller.BaseController;
 import com.zeng.web.domain.BaseResult;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Slf4j
 @RestController
 @RequestMapping("user")
 public class LoginController extends BaseController {

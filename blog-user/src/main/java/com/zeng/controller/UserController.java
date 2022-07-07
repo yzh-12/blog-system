@@ -4,17 +4,16 @@ import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import com.zeng.entities.bo.UserDetailInfoBo;
 import com.zeng.entities.po.UserInfoPo;
+import com.zeng.entities.vo.ChangePwdVo;
 import com.zeng.entities.vo.CreateUserVo;
 import com.zeng.entities.vo.JoinVipVo;
 import com.zeng.service.UserInfoService;
 import com.zeng.utils.ObjUtil;
 import com.zeng.web.controller.BaseController;
 import com.zeng.web.domain.BaseResult;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RestController
 @RequestMapping("user")
 public class UserController extends BaseController {
@@ -47,6 +46,18 @@ public class UserController extends BaseController {
         return success("find user detail info success.", userDetailInfo);
     }
 
+    @PutMapping("userinfo")
+    public BaseResult<Object> updateUserInfo() {
+        // TODO: 2022/7/7
+        return success();
+    }
+
+    @PutMapping("pwd")
+    public BaseResult<Object> changePwd(@RequestBody ChangePwdVo pwdVo) {
+        boolean result = userInfoService.changePwd(pwdVo);
+        return result ? success("change password success,please login again.") : error("change password error.");
+    }
+
     @PostMapping("user")
     public BaseResult<Object> createUser(@RequestBody @Validated CreateUserVo createUserVo) {
         boolean result = userInfoService.createUser(createUserVo);
@@ -54,14 +65,13 @@ public class UserController extends BaseController {
     }
 
     @PutMapping("user")
-    public BaseResult<String> joinToVip(@RequestBody @Validated JoinVipVo joinVipVo) {
-        return BaseResult.success(joinVipVo.toString());
-//        if (ObjUtil.equalsNull(joinVipVo.getUserId())) {
-//            SaSession session = StpUtil.getSession();
-//            joinVipVo.setUserId(session.get("user_id", null));
-//        }
-//        boolean result = userInfoService.joinToVip(joinVipVo);
-//        return result ? success("joinToVip success.") : error("joinToVip error.");
+    public BaseResult<Object> joinToVip(@RequestBody @Validated JoinVipVo joinVipVo) {
+        if (ObjUtil.equalsNull(joinVipVo.getUserId())) {
+            SaSession session = StpUtil.getSession();
+            joinVipVo.setUserId(session.get("user_id", null));
+        }
+        boolean result = userInfoService.joinToVip(joinVipVo);
+        return result ? success("joinToVip success.") : error("joinToVip error.");
     }
 
 }

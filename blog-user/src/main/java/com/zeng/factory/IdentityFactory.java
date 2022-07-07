@@ -5,24 +5,24 @@ import com.zeng.entities.vo.LoginVo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Component
 public class IdentityFactory {
 
-    List<BaseIdentity> identityList;
+    private Map<IdentityTypeConst, BaseIdentity> identityMap;
 
     public IdentityFactory(List<BaseIdentity> identityList) {
-        this.identityList = identityList;
+        this.identityMap = identityList.stream().collect(Collectors.toMap(BaseIdentity::getIdentityType, e -> e));
     }
 
     public BaseIdentity productIdentity(LoginVo loginVo) {
-        BaseIdentity identity = null;
-        for (BaseIdentity baseIdentity : identityList) {
-            IdentityTypeConst identityType = baseIdentity.getIdentityType();
-            if (loginVo.getIdentityType().equals(identityType)) {
-                identity = baseIdentity;
-            }
+        IdentityTypeConst type = loginVo.getIdentityType();
+        BaseIdentity identity = identityMap.get(type);
+        if (identity == null) {
+            throw new IllegalArgumentException("error identity type.");
         }
         return identity;
     }

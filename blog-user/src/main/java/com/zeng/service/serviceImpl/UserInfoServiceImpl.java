@@ -1,8 +1,9 @@
 package com.zeng.service.serviceImpl;
 
+import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Pair;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zeng.dao.UserAuthsDao;
 import com.zeng.dao.UserInfoDao;
 import com.zeng.dao.UserRoleDao;
 import com.zeng.entities.bo.RolePermissionBo;
@@ -10,9 +11,11 @@ import com.zeng.entities.bo.UserDetailInfoBo;
 import com.zeng.entities.po.UserAuthsPo;
 import com.zeng.entities.po.UserInfoPo;
 import com.zeng.entities.po.UserRolePo;
+import com.zeng.entities.vo.ChangePwdVo;
 import com.zeng.entities.vo.CreateUserVo;
 import com.zeng.entities.vo.JoinVipVo;
-import com.zeng.service.RoleResource;
+import com.zeng.service.RoleResourceService;
+import com.zeng.service.UserAuthsService;
 import com.zeng.service.UserInfoService;
 import com.zeng.util.ConvertUtil;
 import com.zeng.utils.DateUtil;
@@ -28,15 +31,18 @@ import java.time.LocalDateTime;
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> implements UserInfoService {
 
-    private RoleResource roleResource;
+    private UserAuthsService userAuthsService;
+
     private UserInfoDao userInfoDao;
-    private UserAuthsDao userAuthsDao;
+
+    private RoleResourceService roleResourceService;
+
     private UserRoleDao userRoleDao;
 
-    public UserInfoServiceImpl(RoleResource roleResource, UserInfoDao userInfoDao, UserAuthsDao userAuthsDao, UserRoleDao userRoleDao) {
-        this.roleResource = roleResource;
+    public UserInfoServiceImpl(UserAuthsService userAuthsService, RoleResourceService roleResourceService, UserInfoDao userInfoDao, UserRoleDao userRoleDao) {
+        this.userAuthsService = userAuthsService;
+        this.roleResourceService = roleResourceService;
         this.userInfoDao = userInfoDao;
-        this.userAuthsDao = userAuthsDao;
         this.userRoleDao = userRoleDao;
     }
 
@@ -54,7 +60,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
             return null;
         }
         UserInfoPo userInfo = this.getUserInfoByUserId(userId);
-        RolePermissionBo roleResource = this.roleResource.getRoleResourceByUserId(userId);
+        RolePermissionBo roleResource = this.roleResourceService.getRoleResourceByUserId(userId);
         return createResult(userInfo, roleResource);
     }
 
@@ -80,7 +86,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
         String userId = userInfo.getUserId();
         userAuths.setUserId(userId);
         userAuths.setCredential(PasswordUtil.hashpw(userAuths.getCredential()));
-        int authsResult = userAuthsDao.insert(userAuths);
+        int authsResult = userAuthsService.addUserAuths(userAuths);
 
         //Assigning Roles
         UserRolePo userRole = new UserRolePo();
@@ -108,6 +114,16 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
         int result = userRoleDao.updateById(updatePo);
         if (result != 1) {
             throw new RuntimeException("join to vip error.");
+        }
+        return true;
+    }
+
+    @Override
+    public boolean changePwd(ChangePwdVo pwdVo) {
+        SaSession session = StpUtil.getSession();
+        String userId = (String) session.get("user_id");
+        if (!userAuthsService.checkPwd(userId, pwdVo.getOdlPwd()) || !userAuthsService.changePwd(userId, pwdVo.getNewPwd())) {
+            return false;
         }
         return true;
     }

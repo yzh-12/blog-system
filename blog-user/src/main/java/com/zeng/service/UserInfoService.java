@@ -2,6 +2,7 @@ package com.zeng.service;
 
 import com.zeng.entities.bo.UserDetailInfoBo;
 import com.zeng.entities.po.UserInfoPo;
+import com.zeng.entities.vo.ChangePwdVo;
 import com.zeng.entities.vo.CreateUserVo;
 import com.zeng.entities.vo.JoinVipVo;
 
@@ -16,4 +17,6 @@ public interface UserInfoService {
     boolean createUser(CreateUserVo createUserVo);
 
     boolean joinToVip(JoinVipVo joinVipVo);
+
+    boolean changePwd(ChangePwdVo pwdVo);
 }

@@ -11,4 +11,8 @@ public interface UserAuthsService {
 
     boolean logout();
 
+    boolean checkPwd(String userId, String pwd);
+
+    boolean changePwd(String userId, String newPwd);
+
 }

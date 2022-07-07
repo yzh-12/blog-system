@@ -21,7 +21,7 @@ public enum IdentityTypeConst implements BaseEnum {
     }
 
     @Override
-    public Object getCode() {
+    public Integer getCode() {
         return this.key;
     }
 }

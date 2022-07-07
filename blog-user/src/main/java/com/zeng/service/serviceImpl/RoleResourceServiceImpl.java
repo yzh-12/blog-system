@@ -5,8 +5,7 @@ import com.zeng.dao.RolePermissionDao;
 import com.zeng.entities.bo.PermissionBo;
 import com.zeng.entities.bo.RolePermissionBo;
 import com.zeng.entities.po.RolePermissionPo;
-import com.zeng.entities.vo.JoinVipVo;
-import com.zeng.service.RoleResource;
+import com.zeng.service.RoleResourceService;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -15,11 +14,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class RoleResourceImpl implements RoleResource {
+public class RoleResourceServiceImpl implements RoleResourceService {
 
     private RolePermissionDao rolePermissionDao;
 
-    public RoleResourceImpl(RolePermissionDao rolePermissionDao) {
+    public RoleResourceServiceImpl(RolePermissionDao rolePermissionDao) {
         this.rolePermissionDao = rolePermissionDao;
     }
 

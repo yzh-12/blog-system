@@ -22,7 +22,7 @@ public enum RoleConst implements BaseEnum {
     }
 
     @Override
-    public Object getCode() {
+    public Integer getCode() {
         return this.index;
     }
 }
