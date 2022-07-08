@@ -14,4 +14,5 @@ public class UserRolePo {
     private String roleId;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
+    private LocalDateTime expirationTime;
 }

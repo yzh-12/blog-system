@@ -58,7 +58,7 @@ public class UserController extends BaseController {
         return result ? success("change password success,please login again.") : error("change password error.");
     }
 
-    @PostMapping("user")
+    @PostMapping("account")
     public BaseResult<Object> createUser(@RequestBody @Validated CreateUserVo createUserVo) {
         boolean result = userInfoService.createUser(createUserVo);
         return result ? success("create user success.") : error("create user error.");

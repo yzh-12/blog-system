@@ -26,6 +26,4 @@ public class CreateUserVo {
     private IdentityTypeConst identityType;
     private String identifier;
     private String credential;
-    @NotNull(message = "role can not be null.")
-    private RoleConst role;
 }

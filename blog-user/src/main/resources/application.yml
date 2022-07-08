@@ -1,5 +1,6 @@
 server:
   port: 7000
+
 spring:
   application:
     name: blog-user
@@ -14,6 +15,7 @@ spring:
     port: 6379
     password:
     timeout: 10s
+
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
   configuration:
@@ -27,3 +29,13 @@ sa-token:
   is-concurrent: true
   is-share: true
   is-log: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7002/eureka
+    register-with-eureka: true
+  instance:
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+    prefer-ip-address: true
+    hostname: blog

@@ -4,6 +4,7 @@ import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Pair;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zeng.constant.RoleConst;
 import com.zeng.dao.UserInfoDao;
 import com.zeng.dao.UserRoleDao;
 import com.zeng.entities.bo.RolePermissionBo;
@@ -18,6 +19,7 @@ import com.zeng.service.RoleResourceService;
 import com.zeng.service.UserAuthsService;
 import com.zeng.service.UserInfoService;
 import com.zeng.util.ConvertUtil;
+import com.zeng.util.MemberUtil;
 import com.zeng.utils.DateUtil;
 import com.zeng.utils.ObjUtil;
 import com.zeng.utils.PasswordUtil;
@@ -90,11 +92,12 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
 
         //Assigning Roles
         UserRolePo userRole = new UserRolePo();
-        userRole.setRoleId(createUserVo.getRole().key());
+        userRole.setRoleId(RoleConst.COMMON.key());
         userRole.setUserId(userId);
         LocalDateTime now = DateUtil.getNowLocalDateTime();
         userRole.setCreateTime(now);
         userRole.setUpdateTime(now);
+        userRole.setExpirationTime(now);
         int userRoleResult = userRoleDao.insert(userRole);
 
         //determine whether it is successful
@@ -110,7 +113,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
         UserRolePo updatePo = new UserRolePo();
         updatePo.setUserId(joinVipVo.getUserId());
         updatePo.setRoleId(joinVipVo.getRole().key());
-        updatePo.setUpdateTime(DateUtil.getNowLocalDateTime());
+        LocalDateTime now = DateUtil.getNowLocalDateTime();
+        updatePo.setUpdateTime(now);
+        updatePo.setExpirationTime(MemberUtil.add30Days(now));
         int result = userRoleDao.updateById(updatePo);
         if (result != 1) {
             throw new RuntimeException("join to vip error.");

@@ -1,0 +1,15 @@
+server:
+  port: 7002
+spring:
+  application:
+    name: blog-eureka
+eureka:
+  instance:
+    hostname: localhost
+    client:
+      service-url:
+        default-zone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      register-with-eureka: false
+      fetch-registry: false
+  server:
+    enable-self-preservation: false

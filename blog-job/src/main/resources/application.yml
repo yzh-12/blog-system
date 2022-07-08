@@ -1,0 +1,37 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: blog-job
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog-system?useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+  quartz:
+    job-store-type: jdbc
+    wait-for-jobs-to-complete-on-shutdown: true
+    properties:
+      org:
+        quartz:
+          zeng:
+            dataSource: driver:com.mysql.cj.jdbc.Driver
+            URL: jdbc:mysql://localhost:3306/blog-system?useUnicode=true&characterEncoding=utf8
+            user: root
+            password: 123456
+          scheduler:
+            instanceName: blogScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 2
+            threadsInheritContextClassLoaderOfInitializingThread: true
+    jdbc:
+      initialize-schema: never
+
