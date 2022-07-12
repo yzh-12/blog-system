@@ -4,7 +4,7 @@ spring:
   application:
     name: blog-job
   datasource:
-    url: jdbc:mysql://localhost:3306/blog-system?useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/blog_system?useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
@@ -16,7 +16,7 @@ spring:
         quartz:
           zeng:
             dataSource: driver:com.mysql.cj.jdbc.Driver
-            URL: jdbc:mysql://localhost:3306/blog-system?useUnicode=true&characterEncoding=utf8
+            URL: jdbc:mysql://localhost:3306/blog_system?useUnicode=true&characterEncoding=utf8
             user: root
             password: 123456
           scheduler:
@@ -33,5 +33,12 @@ spring:
             threadCount: 2
             threadsInheritContextClassLoaderOfInitializingThread: true
     jdbc:
-      initialize-schema: never
+      initialize-schema: always
+      schema: classpath:org/quartz/impl/jdbcjobstore/tables_mysql_innodb.sql
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+  client:
+    service-url:
+      defaultZone: http://localhost:7002/eureka/
 

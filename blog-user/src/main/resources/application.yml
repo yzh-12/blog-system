@@ -31,11 +31,8 @@ sa-token:
   is-log: true
 
 eureka:
+  instance:
+    instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
   client:
     service-url:
-      defaultZone: http://localhost:7002/eureka
-    register-with-eureka: true
-  instance:
-    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
-    prefer-ip-address: true
-    hostname: blog
+      defaultZone: http://localhost:7002/eureka/

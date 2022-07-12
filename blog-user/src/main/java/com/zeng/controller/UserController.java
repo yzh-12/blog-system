@@ -24,7 +24,7 @@ public class UserController extends BaseController {
         this.userInfoService = userInfoService;
     }
 
-    @GetMapping("userinfo/userid")
+    @PostMapping("userinfo/userid")
     public BaseResult<UserInfoPo> findUserInfoByUserId(@RequestBody String userId) {
         UserInfoPo result = userInfoService.getUserInfoByUserId(userId);
         return success("find user info success.", result);
