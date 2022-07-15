@@ -9,13 +9,35 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      max-active: 20
+      min-idle: 1
+      filters: stat
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: admin
+      max-wait: 6000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: false
+      max-open-prepared-statements: 20
   redis:
     database: 0
     host: localhost
     port: 6379
     password:
     timeout: 10s
-
+    
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*.xml
   configuration:

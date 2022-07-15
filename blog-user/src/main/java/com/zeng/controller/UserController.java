@@ -4,6 +4,7 @@ import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import com.zeng.entities.bo.UserDetailInfoBo;
 import com.zeng.entities.po.UserInfoPo;
+import com.zeng.entities.po.UserRolePo;
 import com.zeng.entities.vo.ChangePwdVo;
 import com.zeng.entities.vo.CreateUserVo;
 import com.zeng.entities.vo.JoinVipVo;
@@ -13,6 +14,8 @@ import com.zeng.web.controller.BaseController;
 import com.zeng.web.domain.BaseResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("user")
@@ -72,6 +75,12 @@ public class UserController extends BaseController {
         }
         boolean result = userInfoService.joinToVip(joinVipVo);
         return result ? success("joinToVip success.") : error("joinToVip error.");
+    }
+
+    @PostMapping("expiration")
+    public BaseResult<List<UserRolePo>> findExpirationUser(@RequestBody int expirationDay) {
+        List<UserRolePo> result = userInfoService.getExpirationUser(expirationDay);
+        return success("findExpirationUser success.", result);
     }
 
 }

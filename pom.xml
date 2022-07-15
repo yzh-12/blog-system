@@ -9,6 +9,7 @@
         <module>blog-common</module>
         <module>blog-job</module>
         <module>blog-eureka</module>
+        <module>blog-message</module>
     </modules>
     <name>blog-system</name>
     <packaging>pom</packaging>
@@ -30,10 +31,16 @@
         <spring.validation>2.7.0</spring.validation>
         <sa-token-redis>1.30.0</sa-token-redis>
         <spring.cloud.version>2021.0.1</spring.cloud.version>
+        <druid.version>1.1.21</druid.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>

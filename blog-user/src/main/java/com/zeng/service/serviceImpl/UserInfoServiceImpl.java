@@ -3,6 +3,7 @@ package com.zeng.service.serviceImpl;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.lang.Pair;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zeng.constant.RoleConst;
 import com.zeng.dao.UserInfoDao;
@@ -27,7 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -131,6 +134,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoDao, UserInfoPo> im
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<UserRolePo> getExpirationUser(int expirationDay) {
+        QueryWrapper<UserRolePo> wrapper = new QueryWrapper<>();
+        LocalDate time = DateUtil.getNowLocalDate().plusDays(expirationDay);
+        wrapper.eq("expiration_time", time);
+        return userRoleDao.selectList(wrapper);
     }
 
     private boolean checkUserInfo(CreateUserVo createUserVo) {
