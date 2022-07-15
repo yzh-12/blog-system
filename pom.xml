@@ -10,6 +10,7 @@
         <module>blog-job</module>
         <module>blog-eureka</module>
         <module>blog-message</module>
+        <module>blog-system-core</module>
     </modules>
     <name>blog-system</name>
     <packaging>pom</packaging>

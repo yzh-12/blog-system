@@ -9,6 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SaRouteInterceptor()).excludePathPatterns("/user/login").excludePathPatterns("/user/account").excludePathPatterns("/user/expiration").addPathPatterns("/**");
+        registry.addInterceptor(new SaRouteInterceptor())
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/user/account")
+                .excludePathPatterns("/user/expiration")
+                .addPathPatterns("/**");
     }
 }
